@@ -1,12 +1,9 @@
 package se.iths.entity;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
-import java.util.logging.Logger;
 
 @Entity
 public class Item {
