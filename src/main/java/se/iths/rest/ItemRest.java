@@ -8,6 +8,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
+import java.util.Optional;
 
 @Path("items")
 @Consumes(MediaType.APPLICATION_JSON)
@@ -34,12 +35,13 @@ public class ItemRest {
     @Path("{id}")
     @GET
     public Response getItem(@PathParam("id") Long id) {
-        Item foundItem = itemService.findItemById(id);
-        if (foundItem == null) {
-            throw new WebApplicationException(Response.status(Response.Status.NOT_FOUND)
-                    .entity("Item with ID " + id + " was not found in database.").type(MediaType.TEXT_PLAIN_TYPE).build());
-        }
-        return Response.ok(foundItem).build();
+        Optional<Item> foundItem = itemService.findItemById(id);
+
+        var item = foundItem.orElseThrow(
+                () -> new WebApplicationException(Response.status(Response.Status.NOT_FOUND)
+                        .entity("Item with ID " + id + " was not found in database.").type(MediaType.TEXT_PLAIN_TYPE).build()));
+
+        return Response.ok(item).build();
     }
 
     @Path("")

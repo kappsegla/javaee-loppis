@@ -8,6 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @Transactional
 public class ItemService {
@@ -16,7 +17,7 @@ public class ItemService {
     EntityManager entityManager;
 
     public void createItem(Item item) {
-        entityManager.persist(item);
+            entityManager.persist(item);
     }
 
     // For demo purpose
@@ -35,8 +36,8 @@ public class ItemService {
         entityManager.merge(item);
     }
 
-    public Item findItemById(Long id) {
-        return entityManager.find(Item.class, id);
+    public Optional<Item> findItemById(Long id) {
+        return Optional.ofNullable(entityManager.find(Item.class, id));
     }
 
     public List<Item> getAllItems() {
