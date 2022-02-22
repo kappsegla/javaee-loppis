@@ -1,5 +1,6 @@
 package se.iths.rest;
 
+import se.iths.ErrorMessage;
 import se.iths.entity.Item;
 import se.iths.service.ItemService;
 
@@ -39,7 +40,9 @@ public class ItemRest {
 
         var item = foundItem.orElseThrow(
                 () -> new WebApplicationException(Response.status(Response.Status.NOT_FOUND)
-                        .entity("Item with ID " + id + " was not found in database.").type(MediaType.TEXT_PLAIN_TYPE).build()));
+                        .entity(new ErrorMessage("404", "Item with ID " + id + " was not found in database.", "/api/v1/items/" + id))
+                        .type(MediaType.APPLICATION_JSON_TYPE)
+                        .build()));
 
         return Response.ok(item).build();
     }
@@ -50,6 +53,14 @@ public class ItemRest {
         List<Item> foundItems = itemService.getAllItems();
         return Response.ok(foundItems).build();
     }
+
+    @Path("/filter")
+    @GET
+    public Response getItems(@QueryParam("category") String category) {
+        List<Item> foundItems = itemService.getItems(category);
+        return Response.ok(foundItems).build();
+    }
+
 
     @Path("{id}")
     @DELETE

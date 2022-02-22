@@ -6,6 +6,10 @@ import javax.validation.constraints.Size;
 import java.time.LocalDate;
 
 @Entity
+@NamedQueries({
+        @NamedQuery(name = "Item.findByCategory", query = "SELECT i from Item i where i.category =:category"),
+        @NamedQuery(name = "Item.findByName", query = "SELECT i from Item i where i.name =:name")
+})
 public class Item {
 
     @Id
