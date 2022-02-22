@@ -1,5 +1,7 @@
 package se.iths.entity;
 
+import se.iths.constraints.Category;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
@@ -20,6 +22,7 @@ public class Item {
     @NotEmpty
     @Size(min = 2)
     private String name;
+    @Category
     private String category;
     private int quantity;
     private double price;

@@ -85,5 +85,11 @@ public class ItemRest {
         return Response.ok(updatedItem).build();
     }
 
+    @Path("{id}")
+    @PATCH
+    public Response updateName(@PathParam("id") Long id, Item item) {
+        Item updatedItem = itemService.updateName(id, item.getName());
+        return Response.ok(updatedItem).build();
+    }
 
 }
