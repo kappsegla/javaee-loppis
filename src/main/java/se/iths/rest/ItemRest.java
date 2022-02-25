@@ -75,6 +75,8 @@ public class ItemRest {
 
         // Här finns logik som filtrerar ut alla items efter vald kategori
         String responseString = "Här får du en lista på alla items i kategori: " + category;
+
+
         return Response.ok(responseString).build();
     }
 

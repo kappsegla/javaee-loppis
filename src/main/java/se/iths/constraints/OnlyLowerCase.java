@@ -15,10 +15,10 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  * Mark a String as representing a well formed category
  */
 @Documented
-@Constraint(validatedBy = Category.CategoryValidator.class)
+@Constraint(validatedBy = OnlyLowerCase.LowerCaseValidator.class)
 @Target({METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE})
 @Retention(RUNTIME)
-public @interface Category {
+public @interface OnlyLowerCase {
 
     String message() default "{must not contain uppercase}";
 
@@ -26,7 +26,7 @@ public @interface Category {
 
     Class<? extends Payload>[] payload() default {};
 
-    class CategoryValidator implements ConstraintValidator<Category, String> {
+    class LowerCaseValidator implements ConstraintValidator<OnlyLowerCase, String> {
 
         @Override
         public boolean isValid(String value, ConstraintValidatorContext context) {
